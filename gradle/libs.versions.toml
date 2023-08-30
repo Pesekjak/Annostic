@@ -1,0 +1,25 @@
+[versions]
+jetbrains-kotlin-gradle = "1.6.21"
+jetbrains-annotations = "23.0.0"
+junit = "5.9.1"
+jetbrains-kotlin-jvm = "1.7.20"
+asm = "9.5"
+google-gson = "2.10.1"
+google-autoservice = "1.1.1"
+
+[libraries]
+jetbrains-kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "jetbrains-kotlin-gradle" }
+jetbrains-annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains-annotations" }
+
+junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
+junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
+junit-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit" }
+
+asm-asm = { module = "org.ow2.asm:asm", version.ref = "asm" }
+asm-commons = { module = "org.ow2.asm:asm-commons", version.ref = "asm" }
+
+google-gson = { module = "com.google.code.gson:gson", version.ref = "google-gson" }
+google-autoservice = { module = "com.google.auto.service:auto-service", version.ref = "google-autoservice" }
+
+[plugins]
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrains-kotlin-jvm" }
