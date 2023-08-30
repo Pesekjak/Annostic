@@ -72,6 +72,11 @@ public class AnnosticProcessor extends AbstractProcessor {
             target = getInternalName((TypeElement) targetElement);
         }
 
+        if (entries.has(target)) {
+            processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, "'" + target + "' cannot use '" + source + "' provider because it already uses a different one");
+            return;
+        }
+
         entries.addProperty(target, source);
     }
 
