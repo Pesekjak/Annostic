@@ -6,6 +6,8 @@ jetbrains-kotlin-jvm = "1.7.20"
 asm = "9.5"
 google-gson = "2.10.1"
 google-autoservice = "1.1.1"
+gradle-plugin-publish = "1.2.1"
+johnrengelman-shadow = "7.1.2"
 
 [libraries]
 jetbrains-kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "jetbrains-kotlin-gradle" }
@@ -23,3 +25,5 @@ google-autoservice = { module = "com.google.auto.service:auto-service", version.
 
 [plugins]
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrains-kotlin-jvm" }
+gradle-plugin-publish = { id = "com.gradle.plugin-publish", version.ref = "gradle-plugin-publish" }
+johnrengelman-shadow = { id = "com.github.johnrengelman.shadow", version.ref = "johnrengelman-shadow" }

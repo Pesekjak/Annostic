@@ -1,6 +1,6 @@
 plugins {
     id("annostic.conventions-library")
-    id("annostic.plugin")
+    id("me.pesekjak.annostic-plugin")
 }
 
 dependencies {
