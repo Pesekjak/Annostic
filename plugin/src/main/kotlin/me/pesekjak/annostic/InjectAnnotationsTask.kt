@@ -65,7 +65,7 @@ open class InjectAnnotationsTask : DefaultTask() {
 
     class SourceVisitor(api: Int, private val source: Type) : ClassVisitor(api, ClassWriter(ClassWriter.COMPUTE_MAXS or ClassWriter.COMPUTE_FRAMES)) {
 
-        val methods: MutableList<Method> = ArrayList()
+        val methods: MutableList<MethodReference> = ArrayList()
 
         companion object {
             fun readAndVisit(api: Int, source: Type, classFile: File): SourceVisitor {
@@ -106,7 +106,7 @@ open class InjectAnnotationsTask : DefaultTask() {
         ): MethodVisitor {
             var methodAccess = access
             if (methodAccess and ACC_STATIC != 0) {
-                methods.add(Method(name, descriptor))
+                methods.add(MethodReference(Method(name, descriptor), signature, exceptions))
                 methodAccess = methodAccess or ACC_SYNTHETIC
             }
 
@@ -120,16 +120,16 @@ open class InjectAnnotationsTask : DefaultTask() {
     }
 
 
-    class TargetVisitor(api: Int, private val target: Type, private val source: Type, methods: List<Method>?) : ClassVisitor(api, ClassWriter(ClassWriter.COMPUTE_MAXS or ClassWriter.COMPUTE_FRAMES)) {
+    class TargetVisitor(api: Int, private val target: Type, private val source: Type, methods: List<MethodReference>?) : ClassVisitor(api, ClassWriter(ClassWriter.COMPUTE_MAXS or ClassWriter.COMPUTE_FRAMES)) {
 
-        private val methods: MutableList<Method> = ArrayList()
+        private val methods: MutableList<MethodReference> = ArrayList()
 
         companion object {
             fun readAndVisit(
                 api: Int,
                 target: Type,
                 source: Type,
-                methods: List<Method>,
+                methods: List<MethodReference>,
                 classFile: File
             ): TargetVisitor {
                 val visitor = TargetVisitor(api, target, source, methods)
@@ -169,8 +169,9 @@ open class InjectAnnotationsTask : DefaultTask() {
             }
         }
 
-        private fun visitStaticMethod(method: Method) {
-            val methodVisitor = visitMethod(ACC_PUBLIC or ACC_STATIC, method.name, method.descriptor, null, arrayOfNulls(0))
+        private fun visitStaticMethod(methodRef: MethodReference) {
+            val method = methodRef.method
+            val methodVisitor = visitMethod(ACC_PUBLIC or ACC_STATIC, method.name, method.descriptor, methodRef.signature, methodRef.exceptions)
             methodVisitor.visitCode()
 
             var index = 0
@@ -199,6 +200,8 @@ open class InjectAnnotationsTask : DefaultTask() {
         }
 
     }
+
+    data class MethodReference(val method: Method, val signature: String?, val exceptions: Array<String>?)
 
 
 }

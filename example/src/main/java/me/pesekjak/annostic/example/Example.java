@@ -11,6 +11,14 @@ public @interface Example {
             return 1;
         }
 
+        static void throwAnException(Exception exception) throws Exception {
+            throw exception;
+        }
+
+        static <T> T generics(T value) {
+            return value;
+        }
+
     }
 
 }
